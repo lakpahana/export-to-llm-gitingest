@@ -3,6 +3,7 @@
  */
 
 import * as path from 'path';
+import * as fs from 'fs';
 import { getEncodingList } from '../utils/ingestion_utils';
 import { isTextFile } from '../utils/textfile_checker_utils';
 import { processNotebook } from '../utils/notebook_utils';
@@ -92,17 +93,10 @@ export class FileSystemNode {
     }
 
     /**
-     * Return the content of the node as a string, including path and content.
+     * Return the content of the node as a string.
      */
     get contentString(): string {
-        const parts = [
-            SEPARATOR,
-            `File: ${this.path_str.replace(/\\/g, '/')}`,
-            SEPARATOR,
-            `${this.content}`,
-        ];
-
-        return parts.join('\n') + '\n\n';
+        return this.content;
     }
 
     /**
@@ -130,13 +124,11 @@ export class FileSystemNode {
         // Try multiple encodings
         for (const encoding of getEncodingList()) {
             try {
-                // Note: In a real implementation, you would use fs.readFileSync here
-                // For this conversion, we'll leave it as a placeholder
-                // const content = fs.readFileSync(this.path, { encoding });
-                // return content;
-                return ""; // Placeholder
+                const content = require('fs').readFileSync(this.path, { encoding });
+                return content;
             } catch (error) {
-                if (error instanceof Error && error.name === 'UnicodeDecodeError') {
+                if (error instanceof Error && 
+                    (error.message.includes('decode') || error.message.includes('encoding'))) {
                     continue;
                 }
                 return `Error reading file: ${error}`;

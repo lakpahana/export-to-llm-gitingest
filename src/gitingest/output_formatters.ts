@@ -79,11 +79,18 @@ function createSummaryPrefix(query: IngestionQuery, single_file: boolean = false
  */
 function gatherFileContents(node: FileSystemNode): string {
     if (node.type === FileSystemNodeType.FILE) {
-        return node.contentString;
+        // Get file extension for syntax highlighting
+        const ext = node.name.split('.').pop() || '';
+
+        // Format content with markdown code block and file path
+        return `### ${node.path_str}\n\`\`\`${ext}\n${node.contentString}\n\`\`\`\n`;
     }
 
     // Recursively gather contents of all files under the current directory
-    return node.children.map(child => gatherFileContents(child)).join('\n');
+    return node.children
+        .filter(child => child.type === FileSystemNodeType.FILE) // Only include files
+        .map(child => gatherFileContents(child))
+        .join('\n');
 }
 
 /**

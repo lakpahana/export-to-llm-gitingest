@@ -34,16 +34,16 @@ async function ingest_async(query_str: string, is_local: boolean): Promise<void>
         const doc = await vscode.workspace.openTextDocument({
             content: `# Ingestion Results for ${query_str}
 
-            ## Summary
-            ${summary}
+			## Summary
+			${summary}
 
-            ## Directory Structure
-            ${structure}
+			## Directory Structure
+			${structure}
 
-            ## File Contents
-            ${contents}`,
-            language: 'markdown'
-        });
+			## File Contents
+			${contents}`,
+						language: 'markdown'
+					});
 
         await vscode.window.showTextDocument(doc, { preview: false });
     } catch (error) {
