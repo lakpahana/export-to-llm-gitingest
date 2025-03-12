@@ -12,3 +12,16 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 **/.vscode-test.*
+
+# Project specific
+.npmrc
+.npmignore
+.eslintrc.json
+.prettierrc
+.github/**
+test/**
+docs/**
+*.vsix
+
+# Keep
+!dist/**/*.js

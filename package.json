@@ -3,6 +3,9 @@
   "displayName": "Export to LLM Gitingest",
   "description": "Analyze and export codebases to LLM-friendly formats. Supports local directories and Git repositories with smart filtering and Markdown output.",
   "version": "1.0.0",
+  "publisher": "lakpahana",
+  "private": false,
+  "license": "MIT",
   "engines": {
     "vscode": "^1.98.0"
   },
@@ -11,6 +14,7 @@
     "Programming Languages",
     "SCM Providers"
   ],
+  
   "keywords": [
     "git",
     "llm",
@@ -18,6 +22,19 @@
     "analysis",
     "export"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gitingest/export-to-llm-gitingest.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gitingest/export-to-llm-gitingest/issues"
+  },
+  "homepage": "https://github.com/gitingest/export-to-llm-gitingest#readme",
+  "icon": "resources/icon.png",
+  "galleryBanner": {
+    "color": "#C80000",
+    "theme": "dark"
+  },
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
@@ -89,7 +106,7 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "commander": "^12.0.0",
+    "commander": "^13.1.0",
     "rimraf": "^6.0.1",
     "simple-git": "^3.22.0",
     "uuid": "^11.1.0"
