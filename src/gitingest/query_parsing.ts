@@ -124,7 +124,7 @@ export async function parseRemoteRepo(source: string): Promise<IngestionQuery> {
         type: 'tree',
         subpath: '/',
         max_file_size: 0,
-        ignore_patterns: new Set()
+        ignore_patterns: new Set([...DEFAULT_IGNORE_PATTERNS])
     });
 
     const remaining_parts = url.pathname.split('/').filter(p => p.length > 0).slice(2);
@@ -245,11 +245,18 @@ export function applyPatterns(
     const ignoreSet = new Set(ignore_patterns.map(normalizePattern));
     const includeSet = new Set(include_patterns.map(normalizePattern));
 
+    // Merge with default ignore patterns
+    const mergedIgnorePatterns = new Set([
+        ...DEFAULT_IGNORE_PATTERNS,  // Add default patterns first
+        ...query.ignore_patterns,    // Add existing patterns
+        ...ignoreSet                 // Add user-specified patterns
+    ]);
+
     // Create new query with updated patterns
     return createIngestionQuery({
         ...query,
         max_file_size,
-        ignore_patterns: new Set([...query.ignore_patterns, ...ignoreSet]),
+        ignore_patterns: mergedIgnorePatterns,
         include_patterns: includeSet.size > 0 ? includeSet : query.include_patterns
     });
 }
@@ -270,7 +277,7 @@ export function parseLocalDirPath(path_str: string): IngestionQuery {
         slug,
         id,
         type: 'tree',
-        ignore_patterns: new Set()
+        ignore_patterns: new Set([...DEFAULT_IGNORE_PATTERNS])
     });
 }
 

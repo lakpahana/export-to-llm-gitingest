@@ -10,8 +10,8 @@ import { applyPatterns } from './gitingest/query_parsing';
 async function ingest_async(query_str: string, is_local: boolean): Promise<void> {
     try {
         // Parse query based on type
-        const query = is_local ? 
-            parseLocalDirPath(query_str) : 
+        const query = is_local ?
+            parseLocalDirPath(query_str) :
             await parseRemoteRepo(query_str);
 
         // Get user preferences for ignore/include patterns
@@ -34,14 +34,14 @@ async function ingest_async(query_str: string, is_local: boolean): Promise<void>
         const doc = await vscode.workspace.openTextDocument({
             content: `# Ingestion Results for ${query_str}
 
-## Summary
-${summary}
+            ## Summary
+            ${summary}
 
-## Directory Structure
-${structure}
+            ## Directory Structure
+            ${structure}
 
-## File Contents
-${contents}`,
+            ## File Contents
+            ${contents}`,
             language: 'markdown'
         });
 
@@ -89,4 +89,4 @@ export function activate(context: vscode.ExtensionContext) {
 /**
  * Deactivate the extension
  */
-export function deactivate() {}
+export function deactivate() { }
