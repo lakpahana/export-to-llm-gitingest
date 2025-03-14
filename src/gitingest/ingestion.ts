@@ -157,6 +157,7 @@ async function processNode(
     const entries = await fs.readdir(node.path, { withFileTypes: true });
 
     for (const entry of entries) {
+        console.log(`Processing ${entry.name} in ${node.path}`);
         const entryPath = path.join(node.path, entry.name);
 
         let symlink_path: string | undefined;
@@ -188,10 +189,13 @@ async function processNode(
         }
 
         const targetStats = await fs.stat(targetPath);
-
+        console.log(`Processing ${targetPath}`);
+        // console.log(`Stats: ${JSON.stringify(targetStats)}`);
         if (targetStats.isFile()) {
+            console.log(`Processing file ${targetPath}`);
             await processFile(targetPath, node, stats, query.local_path);
         } else if (targetStats.isDirectory()) {
+            console.log(`Processing directory ${targetPath}`);
             const child_directory_node = new FileSystemNode(
                 path.basename(targetPath),
                 FileSystemNodeType.DIRECTORY,
@@ -289,7 +293,7 @@ function limitExceeded(stats: FileSystemStats, depth: number): boolean {
     }
 
     if (stats.total_size >= MAX_TOTAL_SIZE_BYTES) {
-        console.log(`Maximum total size limit (${(MAX_TOTAL_SIZE_BYTES/1024/1024).toFixed(1)}MB) reached`);
+        console.log(`Maximum total size limit (${(MAX_TOTAL_SIZE_BYTES / 1024 / 1024).toFixed(1)}MB) reached`);
         return true;
     }
 
