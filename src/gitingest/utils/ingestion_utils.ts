@@ -85,9 +85,10 @@ export function shouldExclude(filePath: string, basePath: string, ignorePatterns
     try {
         // Calculate relative path
         const relativePath = path.relative(basePath, filePath);
-
+        console.log(relativePath);
         // If path is not under base_path at all
         if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
+            console.log('not under base path');
             return true;
         }
 
@@ -114,12 +115,17 @@ export function shouldExclude(filePath: string, basePath: string, ignorePatterns
  * @returns Whether the string matches the pattern
  */
 function matchPattern(string: string, pattern: string): boolean {
+    // Normalize path separators to forward slashes
+    const normalizedString = string.replace(/[\\/]/g, '/');
+    const normalizedPattern = pattern.replace(/[\\/]/g, '/');
+
     // Convert fnmatch pattern to JavaScript RegExp
-    const regExpPattern = pattern
+    const regExpPattern = normalizedPattern
         .replace(/\./g, '\\.')    // Escape dots
         .replace(/\*/g, '.*')     // Convert * to .*
         .replace(/\?/g, '.');     // Convert ? to .
 
-    const regExp = new RegExp(`^${regExpPattern}$`);
-    return regExp.test(string);
+    // Match pattern anywhere in the path
+    const regExp = new RegExp(regExpPattern);
+    return regExp.test(normalizedString);
 }
