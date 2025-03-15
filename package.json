@@ -23,12 +23,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/gitingest/export-to-llm-gitingest.git"
+    "url": "https://github.com/lakpahana/export-to-llm-gitingest.git"
   },
   "bugs": {
-    "url": "https://github.com/gitingest/export-to-llm-gitingest/issues"
+    "url": "https://github.com/lakpahana/export-to-llm-gitingest/issues"
   },
-  "homepage": "https://github.com/gitingest/export-to-llm-gitingest#readme",
+  "homepage": "https://github.com/lakpahana/export-to-llm-gitingest#readme",
   "icon": "resources/icon.png",
   "galleryBanner": {
     "color": "#C80000",

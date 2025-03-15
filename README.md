@@ -1,4 +1,4 @@
-# Gitingest VS Code Extension
+# Gitingest VS Code Extension (No Python Required)
 
 A powerful VS Code extension for analyzing and exporting codebases to LLM-friendly formats. This extension allows you to analyze both local directories and remote Git repositories, providing structured output with summaries, directory structures, and file contents.
 
@@ -18,5 +18,5 @@ This extension contributes the following settings:
    - `Gitingest: Ingest Local Directory`: Analyze a local directory
    - `Gitingest: Ingest Git Repository`: Analyze a remote Git repository
 3. Follow the prompts to select a directory or enter a repository URL
-4. View the results in a new Markdown document
+4. View the results in a new text document
 
