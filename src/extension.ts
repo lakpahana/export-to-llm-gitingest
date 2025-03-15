@@ -39,17 +39,15 @@ async function ingest_async(query_str: string, is_local: boolean): Promise<void>
 
         // Create output document
         const doc = await vscode.workspace.openTextDocument({
-            content: `# Ingestion Results for ${query_str}
+            content: `Ingestion Results for ${query_str}
+Summary
+${summary}\n
 
-			## Summary
-			${summary}
+${structure}
 
-			## Directory Structure
-			${structure}
-
-			## File Contents
-			${contents}`,
-            language: 'markdown'
+File Contents\n
+${contents}`,
+            // language: 'markdown'
         });
 
         await vscode.window.showTextDocument(doc, { preview: false });

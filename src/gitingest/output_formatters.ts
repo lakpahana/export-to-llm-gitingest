@@ -82,7 +82,14 @@ function gatherFileContents(node: FileSystemNode): string {
         // Get file extension for syntax highlighting
         const ext = node.name.split('.').pop() || '';
         // Format content with markdown code block and file path
-        return `### ${node.path_str}\n\`\`\`${ext}\n${node.contentString}\n\`\`\`\n`;
+        // ================================================
+        // File: README.md
+        // ================================================
+        let str = `===============================================
+File: ${node.path_str}
+===============================================\n
+${node.contentString}\n`;
+        return str;
     }
 
     // Process all children (both files and directories) recursively
