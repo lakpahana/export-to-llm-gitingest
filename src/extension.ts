@@ -3,6 +3,8 @@ import * as path from 'path';
 import { ingestQuery } from './gitingest/ingestion';
 import { parseLocalDirPath, parseRemoteRepo } from './gitingest/query_parsing';
 import { applyPatterns } from './gitingest/query_parsing';
+import { clone } from './gitingest';
+import { extractCloneConfig } from './gitingest/types/ingestion_schema';
 
 /**
  * Ingest a local directory or Git repository and show results
@@ -27,6 +29,11 @@ async function ingest_async(query_str: string, is_local: boolean): Promise<void>
             include_patterns: includePatterns
         });
 
+        if (!is_local) {
+            let clone_config = extractCloneConfig(finalQuery);
+            await clone(clone_config);
+        }
+
         // Run ingestion
         const [summary, structure, contents] = await ingestQuery(finalQuery);
 
@@ -42,8 +49,8 @@ async function ingest_async(query_str: string, is_local: boolean): Promise<void>
 
 			## File Contents
 			${contents}`,
-						language: 'markdown'
-					});
+            language: 'markdown'
+        });
 
         await vscode.window.showTextDocument(doc, { preview: false });
     } catch (error) {

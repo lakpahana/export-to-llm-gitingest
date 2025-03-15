@@ -133,7 +133,7 @@ export async function fetchRemoteBranchList(url: string): Promise<string[]> {
  * @throws Error if command exits with a non-zero status
  */
 export async function runCommand(command: string, args: string[]): Promise<{ stdout: Buffer; stderr: Buffer }> {
-    await checkGitInstalled();
+    // await checkGitInstalled();
 
     return new Promise((resolve, reject) => {
         const proc = spawn(command, args);
