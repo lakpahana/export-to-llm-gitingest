@@ -2,7 +2,7 @@
   "name": "export-to-llm-gitingest",
   "displayName": "Export to LLM Gitingest",
   "description": "Analyze and export codebases to LLM-friendly formats. Supports local directories and Git repositories with smart filtering and Markdown output.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "lakpahana",
   "private": false,
   "license": "MIT",
@@ -14,7 +14,6 @@
     "Programming Languages",
     "SCM Providers"
   ],
-  
   "keywords": [
     "git",
     "llm",
