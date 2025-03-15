@@ -157,7 +157,7 @@ async function processNode(
     const entries = await fs.readdir(node.path, { withFileTypes: true });
 
     for (const entry of entries) {
-        console.log(`Processing ${entry.name} in ${node.path}`);
+        // console.log(`Processing ${entry.name} in ${node.path}`);
         const entryPath = path.join(node.path, entry.name);
 
         let symlink_path: string | undefined;
@@ -189,13 +189,13 @@ async function processNode(
         }
 
         const targetStats = await fs.stat(targetPath);
-        console.log(`Processing ${targetPath}`);
+        // console.log(`Processing ${targetPath}`);
         // console.log(`Stats: ${JSON.stringify(targetStats)}`);
         if (targetStats.isFile()) {
-            console.log(`Processing file ${targetPath}`);
+            // console.log(`Processing file ${targetPath}`);
             await processFile(targetPath, node, stats, query.local_path);
         } else if (targetStats.isDirectory()) {
-            console.log(`Processing directory ${targetPath}`);
+            // console.log(`Processing directory ${targetPath}`);
             const child_directory_node = new FileSystemNode(
                 path.basename(targetPath),
                 FileSystemNodeType.DIRECTORY,

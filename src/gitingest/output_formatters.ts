@@ -81,14 +81,12 @@ function gatherFileContents(node: FileSystemNode): string {
     if (node.type === FileSystemNodeType.FILE) {
         // Get file extension for syntax highlighting
         const ext = node.name.split('.').pop() || '';
-
         // Format content with markdown code block and file path
         return `### ${node.path_str}\n\`\`\`${ext}\n${node.contentString}\n\`\`\`\n`;
     }
 
-    // Recursively gather contents of all files under the current directory
+    // Process all children (both files and directories) recursively
     return node.children
-        .filter(child => child.type === FileSystemNodeType.FILE) // Only include files
         .map(child => gatherFileContents(child))
         .join('\n');
 }
